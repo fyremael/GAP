@@ -1,0 +1,17 @@
+"""Run the periodic-grid divergence-free sanity experiment."""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from gap_protected_transformers.experiments import print_results, run_experiment
+
+
+if __name__ == "__main__":
+    rows = run_experiment("divergence_free_sanity", output_dir=ROOT / "runs")
+    print_results(rows)

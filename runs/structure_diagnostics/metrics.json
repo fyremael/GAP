@@ -1,0 +1,42 @@
+{
+  "config": {
+    "core_type": "mlp",
+    "depth": 2,
+    "epochs": 60,
+    "experiment": "structure_diagnostics",
+    "lr": 0.002,
+    "penalty_weight": 10.0,
+    "seed": 0
+  },
+  "experiment": "structure_diagnostics",
+  "results": [
+    {
+      "commutator_error": 0.0,
+      "commutator_error_incompatible": null,
+      "routing_commutator_error": null,
+      "routing_commutator_error_random": null,
+      "variant": "compatible_cycle_hierarchy"
+    },
+    {
+      "commutator_error": 0.41421356237300927,
+      "commutator_error_incompatible": 0.41421356237300927,
+      "routing_commutator_error": null,
+      "routing_commutator_error_random": null,
+      "variant": "incompatible_cycle_hierarchy"
+    },
+    {
+      "commutator_error": null,
+      "commutator_error_incompatible": null,
+      "routing_commutator_error": 0.0,
+      "routing_commutator_error_random": null,
+      "variant": "componentwise_router"
+    },
+    {
+      "commutator_error": null,
+      "commutator_error_incompatible": null,
+      "routing_commutator_error": 0.6093691343615123,
+      "routing_commutator_error_random": 0.6093691343615123,
+      "variant": "random_router"
+    }
+  ]
+}

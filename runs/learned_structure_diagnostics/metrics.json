@@ -1,0 +1,56 @@
+{
+  "config": {
+    "core_type": "mlp",
+    "depth": 2,
+    "epochs": 120,
+    "experiment": "learned_structure_diagnostics",
+    "lr": 0.01,
+    "penalty_weight": 10.0,
+    "seed": 0
+  },
+  "experiment": "learned_structure_diagnostics",
+  "results": [
+    {
+      "commutator_error": 5.204170427929501e-17,
+      "fit_loss": 0.04687504753040478,
+      "routing_commutator_error": null,
+      "training_loss": 0.04687504753040478,
+      "variant": "learned_hard_compatible_restriction"
+    },
+    {
+      "commutator_error": 0.07724306345884312,
+      "fit_loss": 0.07201192212937185,
+      "routing_commutator_error": null,
+      "training_loss": 0.1316768306544405,
+      "variant": "learned_soft_penalty_restriction"
+    },
+    {
+      "commutator_error": 0.413441408300522,
+      "fit_loss": 1.2846559535681566e-06,
+      "routing_commutator_error": null,
+      "training_loss": 1.2846559535681566e-06,
+      "variant": "learned_unconstrained_restriction"
+    },
+    {
+      "commutator_error": null,
+      "fit_loss": 0.037465427843757025,
+      "routing_commutator_error": 1.3436069484289771e-15,
+      "training_loss": 0.037465427843757025,
+      "variant": "learned_hard_compatible_router"
+    },
+    {
+      "commutator_error": null,
+      "fit_loss": 0.11346520373653017,
+      "routing_commutator_error": 0.0024191056816714918,
+      "training_loss": 0.11352372445952112,
+      "variant": "learned_soft_penalty_router"
+    },
+    {
+      "commutator_error": null,
+      "fit_loss": 0.0005136431364352003,
+      "routing_commutator_error": 0.6184715563396781,
+      "training_loss": 0.0005136431364352003,
+      "variant": "learned_unconstrained_router"
+    }
+  ]
+}

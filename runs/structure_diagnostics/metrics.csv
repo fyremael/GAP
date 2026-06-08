@@ -1,0 +1,5 @@
+commutator_error,commutator_error_incompatible,routing_commutator_error,routing_commutator_error_random,variant
+0.0,,,,compatible_cycle_hierarchy
+0.41421356237300927,0.41421356237300927,,,incompatible_cycle_hierarchy
+,,0.0,,componentwise_router
+,,0.6093691343615123,0.6093691343615123,random_router
