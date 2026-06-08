@@ -11,6 +11,7 @@ from .blocks import (
     GapProtectedBlock,
     MLPCore,
     OutputProjectionWrapper,
+    PatchTransformerCore,
     ProjectedResidualBlock,
     ResidualBlock,
     TinyMoECore,
@@ -27,7 +28,7 @@ Variant = Literal[
     "layerwise_projection",
     "split_gap_protected",
 ]
-CoreType = Literal["mlp", "attention", "transformer", "moe"]
+CoreType = Literal["mlp", "attention", "transformer", "patch_transformer", "moe"]
 
 
 @dataclass
@@ -42,6 +43,10 @@ class ModelConfig:
     num_tokens: int = 8
     num_heads: int = 1
     ffn_multiplier: int = 4
+    field_shape: tuple[int, int, int] | None = None
+    patch_size: int = 4
+    patch_embed_dim: int = 128
+    patch_layers: int = 2
     complement_residual: bool = True
     zero_preserving: bool = True
 
@@ -56,6 +61,8 @@ class ModelConfig:
 
         names = {field.name for field in fields(cls)}
         kwargs = {key: value for key, value in data.items() if key in names}
+        if kwargs.get("field_shape") is not None:
+            kwargs["field_shape"] = tuple(kwargs["field_shape"])
         return cls(**kwargs)
 
 
@@ -136,6 +143,18 @@ def _build_core(config: ModelConfig, hidden_dim: int) -> nn.Module:
             num_heads=config.num_heads,
             ffn_multiplier=config.ffn_multiplier,
         )
+    if config.core_type == "patch_transformer":
+        if config.field_shape is None:
+            raise ValueError("field_shape is required for patch_transformer.")
+        return PatchTransformerCore(
+            config.dim,
+            config.field_shape,
+            patch_size=config.patch_size,
+            embed_dim=config.patch_embed_dim,
+            num_heads=config.num_heads,
+            num_layers=config.patch_layers,
+            ffn_multiplier=config.ffn_multiplier,
+        )
     if config.core_type == "moe":
         return TinyMoECore(config.dim, hidden_dim=hidden_dim, num_experts=4)
     raise ValueError(f"Unknown core_type {config.core_type!r}.")
@@ -154,3 +173,13 @@ def _validate_config(config: ModelConfig, constraint: LinearConstraint) -> None:
         token_dim = config.dim // config.num_tokens
         if token_dim % config.num_heads != 0:
             raise ValueError("token dimension must be divisible by num_heads.")
+    if config.core_type == "patch_transformer":
+        if config.field_shape is None:
+            raise ValueError("field_shape is required for patch_transformer.")
+        channels, height, width = config.field_shape
+        if channels * height * width != config.dim:
+            raise ValueError("field_shape product must match dim.")
+        if height % config.patch_size != 0 or width % config.patch_size != 0:
+            raise ValueError("field dimensions must be divisible by patch_size.")
+        if config.patch_embed_dim % config.num_heads != 0:
+            raise ValueError("patch_embed_dim must be divisible by num_heads.")

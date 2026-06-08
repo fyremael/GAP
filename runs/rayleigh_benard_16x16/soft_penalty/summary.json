@@ -1,0 +1,59 @@
+{
+  "best_epoch": 1,
+  "best_val_loss": 0.10609637945890427,
+  "final_metrics": {
+    "complement_component_loss": 0.1012813076376915,
+    "complement_energy": 0.30851316452026367,
+    "constraint_violation_max": 20.67853546142578,
+    "constraint_violation_mean": 17.6256160736084,
+    "loss": 0.178602933883667,
+    "protected_component_loss": 0.0773216187953949,
+    "protected_energy": 0.41042178869247437,
+    "rollout_protected_relative_drift": 1.40706467628479,
+    "rollout_violation_final": 29.034772872924805
+  },
+  "model_config": {
+    "complement_residual": true,
+    "constraint": "external_data\\rayleigh_benard\\rb_velocity_16x16_divergence.npz",
+    "core_type": "patch_transformer",
+    "data": "external_data\\rayleigh_benard\\rb_velocity_16x16_pairs.npz",
+    "depth": 1,
+    "dim": 512,
+    "ffn_multiplier": 4,
+    "field_shape": [
+      2,
+      16,
+      16
+    ],
+    "hidden_dim": null,
+    "input_shape": [
+      2,
+      16,
+      16
+    ],
+    "num_heads": 4,
+    "num_tokens": 8,
+    "patch_embed_dim": 32,
+    "patch_layers": 1,
+    "patch_size": 4,
+    "target_shape": [
+      2,
+      16,
+      16
+    ],
+    "variant": "soft_penalty",
+    "zero_preserving": true
+  },
+  "training_config": {
+    "batch_size": 16,
+    "device": "cpu",
+    "epochs": 2,
+    "grad_clip_norm": 1.0,
+    "lr": 0.001,
+    "output_dir": "runs\\rayleigh_benard_16x16\\soft_penalty",
+    "penalty_weight": 10.0,
+    "rollout_steps": 4,
+    "seed": 0,
+    "weight_decay": 0.0
+  }
+}

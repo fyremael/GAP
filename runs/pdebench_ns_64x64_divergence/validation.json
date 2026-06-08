@@ -1,0 +1,27 @@
+{
+  "constraint": "external_data\\pdebench_ns\\ns_incomp_64x64_divergence.npz",
+  "constraint_codim": 4096,
+  "constraint_dim": 8192,
+  "data": "external_data\\pdebench_ns\\ns_incomp_64x64_pairs.npz",
+  "dtype": "torch.float32",
+  "errors": [],
+  "flat_dim": 8192,
+  "input_constraint_violation_mean": 3.332201231387444e-06,
+  "input_constraint_violation_relative_mean": 2.7389816636969044e-08,
+  "input_shape": [
+    2,
+    64,
+    64
+  ],
+  "num_samples": 1024,
+  "ok": true,
+  "target_constraint_violation_max": 3.3625135529291583e-06,
+  "target_constraint_violation_mean": 3.3089256703533465e-06,
+  "target_constraint_violation_relative_max": 2.7619975639936456e-08,
+  "target_constraint_violation_relative_mean": 2.7238073130320117e-08,
+  "target_shape": [
+    2,
+    64,
+    64
+  ]
+}

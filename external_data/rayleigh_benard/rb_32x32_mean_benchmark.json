@@ -1,0 +1,32 @@
+{
+  "data": "external_data/rayleigh_benard/rb_velocity_32x32_pairs.npz",
+  "constraint": "external_data/rayleigh_benard/rb_velocity_32x32_mean_zero.npz",
+  "implicit_constraint": true,
+  "output_dir": "runs/rayleigh_benard_32x32_mean",
+  "variants": [
+    "vanilla",
+    "soft_penalty",
+    "output_projection",
+    "layerwise_projection",
+    "split_gap_protected"
+  ],
+  "model": {
+    "core": "patch_transformer",
+    "field_shape": [2, 32, 32],
+    "patch_size": 4,
+    "patch_embed_dim": 64,
+    "patch_layers": 1,
+    "num_heads": 4,
+    "depth": 1
+  },
+  "training": {
+    "epochs": 3,
+    "batch_size": 32,
+    "lr": 0.001,
+    "penalty_weight": 10.0,
+    "val_fraction": 0.2,
+    "rollout_steps": 6,
+    "seed": 0,
+    "device": "cpu"
+  }
+}

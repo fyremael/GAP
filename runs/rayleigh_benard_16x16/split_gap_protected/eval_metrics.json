@@ -1,0 +1,17 @@
+{
+  "checkpoint": "runs\\rayleigh_benard_16x16\\split_gap_protected\\best.pt",
+  "checkpoint_epoch": 2,
+  "constraint": "external_data\\rayleigh_benard\\rb_velocity_16x16_divergence.npz",
+  "data": "external_data\\rayleigh_benard\\rb_velocity_16x16_pairs.npz",
+  "metrics": {
+    "complement_component_loss": 0.007396937347948551,
+    "complement_energy": 0.5641142129898071,
+    "constraint_violation_max": 31.476917266845703,
+    "constraint_violation_mean": 24.16347312927246,
+    "loss": 0.013166683726012707,
+    "protected_component_loss": 0.005769748706370592,
+    "protected_energy": 0.43753552436828613,
+    "rollout_protected_relative_drift": 9.691128752820077e-07,
+    "rollout_violation_final": 22.74361801147461
+  }
+}

@@ -28,6 +28,16 @@ Metrics:
 - spectral complement amplification;
 - runtime cost.
 
+Completed external runs:
+
+| Run | Dataset | Constraint | Scale | Status |
+|---|---|---|---|---|
+| RB-16-DIV | Rayleigh-Bénard velocity | sparse periodic divergence | 160 pairs, 2×16×16 | completed stress diagnostic; target residual is high after downsampling |
+| RB-16-MEAN | Rayleigh-Bénard velocity | sparse mean mode | 160 pairs, 2×16×16 | completed five-variant benchmark with visuals |
+| RB-32-MEAN | Rayleigh-Bénard velocity | sparse mean mode | 320 pairs, 2×32×32 | completed five-variant benchmark with six-step rollout diagnostics and visuals |
+| RB-32-DIV-VAL | Rayleigh-Bénard velocity | sparse periodic divergence | 320 pairs, 2×32×32 | validation/stress artifact only; target residual remains high |
+| P1-CLOSE-NS64 | PDEBench-compatible incompressible NS velocity | centered sparse periodic divergence | 1024 pairs, 2×64×64 | complete; target relative divergence mean `2.71e-08`, five variants, visuals, spectral proxy, timing |
+
 ## Phase 2: Graph Edge-Flow Prediction
 
 Task: predict edge flows on graphs or simplicial complexes.

@@ -1,0 +1,15 @@
+{
+  "constraint_output": "external_data\\rayleigh_benard\\rb_velocity_32x32_divergence.npz",
+  "field_shape": [
+    2,
+    32,
+    32
+  ],
+  "mean_constraint_output": "external_data\\rayleigh_benard\\rb_velocity_32x32_mean_zero.npz",
+  "normalized": true,
+  "output": "external_data\\rayleigh_benard\\rb_velocity_32x32_pairs.npz",
+  "pairs": 320,
+  "source": "external_data\\rayleigh_benard\\data_12e3.npz",
+  "source_frames": 500,
+  "source_resolution": 128
+}

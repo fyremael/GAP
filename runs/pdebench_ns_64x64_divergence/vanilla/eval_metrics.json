@@ -1,0 +1,19 @@
+{
+  "checkpoint": "runs\\pdebench_ns_64x64_divergence\\vanilla\\best.pt",
+  "checkpoint_epoch": 20,
+  "constraint": "external_data\\pdebench_ns\\ns_incomp_64x64_divergence.npz",
+  "data": "external_data\\pdebench_ns\\ns_incomp_64x64_pairs.npz",
+  "metrics": {
+    "complement_component_loss": 1.6180916645680554e-05,
+    "complement_energy": 1.6180916645680554e-05,
+    "constraint_violation_max": 0.959174633026123,
+    "constraint_violation_mean": 0.33327561616897583,
+    "constraint_violation_relative_max": 0.007858514785766602,
+    "constraint_violation_relative_mean": 0.0037431439850479364,
+    "loss": 4.403067578095943e-05,
+    "protected_component_loss": 2.7849668185808696e-05,
+    "protected_energy": 0.9988085627555847,
+    "rollout_protected_relative_drift": 0.47518977522850037,
+    "rollout_violation_final": 50.567596435546875
+  }
+}

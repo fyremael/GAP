@@ -1,0 +1,59 @@
+{
+  "best_epoch": 3,
+  "best_val_loss": 0.009474586695432663,
+  "final_metrics": {
+    "complement_component_loss": 4.0831102410265885e-07,
+    "complement_energy": 7.0883076917111385e-25,
+    "constraint_violation_max": 1.945820258697495e-06,
+    "constraint_violation_mean": 7.33830745502928e-07,
+    "loss": 0.009474586695432663,
+    "protected_component_loss": 0.009473927319049835,
+    "protected_energy": 0.9103624820709229,
+    "rollout_protected_relative_drift": 0.9918098449707031,
+    "rollout_violation_final": 6.643908818659838e-07
+  },
+  "model_config": {
+    "complement_residual": true,
+    "constraint": "external_data\\rayleigh_benard\\rb_velocity_32x32_mean_zero.npz",
+    "core_type": "patch_transformer",
+    "data": "external_data\\rayleigh_benard\\rb_velocity_32x32_pairs.npz",
+    "depth": 1,
+    "dim": 2048,
+    "ffn_multiplier": 4,
+    "field_shape": [
+      2,
+      32,
+      32
+    ],
+    "hidden_dim": null,
+    "input_shape": [
+      2,
+      32,
+      32
+    ],
+    "num_heads": 4,
+    "num_tokens": 8,
+    "patch_embed_dim": 64,
+    "patch_layers": 1,
+    "patch_size": 4,
+    "target_shape": [
+      2,
+      32,
+      32
+    ],
+    "variant": "layerwise_projection",
+    "zero_preserving": true
+  },
+  "training_config": {
+    "batch_size": 32,
+    "device": "cpu",
+    "epochs": 3,
+    "grad_clip_norm": 1.0,
+    "lr": 0.001,
+    "output_dir": "runs\\rayleigh_benard_32x32_mean\\layerwise_projection",
+    "penalty_weight": 0.0,
+    "rollout_steps": 6,
+    "seed": 0,
+    "weight_decay": 0.0
+  }
+}

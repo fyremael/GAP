@@ -150,6 +150,7 @@ def evaluate_supervised(
     input_all = torch.cat(inputs, dim=0)
     loss = torch.stack(losses).sum() / element_count
     stats = constraint_violation_stats(constraint, pred_all)
+    relative_stats = constraint_violation_stats(constraint, pred_all, relative=True)
     protected_loss = F.mse_loss(
         constraint.project_kernel(pred_all), constraint.project_kernel(target_all)
     )
@@ -171,6 +172,12 @@ def evaluate_supervised(
             stats["constraint_violation_mean"].cpu()
         ),
         "constraint_violation_max": float(stats["constraint_violation_max"].cpu()),
+        "constraint_violation_relative_mean": float(
+            relative_stats["constraint_violation_mean"].cpu()
+        ),
+        "constraint_violation_relative_max": float(
+            relative_stats["constraint_violation_max"].cpu()
+        ),
         "protected_energy": float(protected_energy(constraint, pred_all).cpu()),
         "complement_energy": float(complement_energy(constraint, pred_all).cpu()),
         "rollout_violation_final": float(rollout["rollout_violation_final"].cpu()),

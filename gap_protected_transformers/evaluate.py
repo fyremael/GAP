@@ -23,6 +23,11 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--input-key", default="x")
     parser.add_argument("--target-key", default="y")
     parser.add_argument("--constraint-key", default="A")
+    parser.add_argument(
+        "--implicit-constraint",
+        action="store_true",
+        help="Use iterative implicit projection instead of dense pseudoinverse projection.",
+    )
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--rollout-steps", type=int, default=4)
@@ -41,7 +46,9 @@ def main(argv: list[str] | None = None) -> None:
         args.constraint,
         key=args.constraint_key,
         dtype=dtype,
+        implicit=args.implicit_constraint,
     )
+    constraint = constraint.to(torch.device(args.device))
     model, checkpoint = load_trained_model(
         args.checkpoint,
         constraint,

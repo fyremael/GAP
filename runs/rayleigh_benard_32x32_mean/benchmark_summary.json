@@ -1,0 +1,124 @@
+{
+  "config": {
+    "constraint": "external_data/rayleigh_benard/rb_velocity_32x32_mean_zero.npz",
+    "data": "external_data/rayleigh_benard/rb_velocity_32x32_pairs.npz",
+    "implicit_constraint": true,
+    "model": {
+      "core": "patch_transformer",
+      "depth": 1,
+      "field_shape": [
+        2,
+        32,
+        32
+      ],
+      "num_heads": 4,
+      "patch_embed_dim": 64,
+      "patch_layers": 1,
+      "patch_size": 4
+    },
+    "output_dir": "runs/rayleigh_benard_32x32_mean",
+    "training": {
+      "batch_size": 32,
+      "device": "cpu",
+      "epochs": 3,
+      "lr": 0.001,
+      "penalty_weight": 10.0,
+      "rollout_steps": 6,
+      "seed": 0,
+      "val_fraction": 0.2
+    },
+    "variants": [
+      "vanilla",
+      "soft_penalty",
+      "output_projection",
+      "layerwise_projection",
+      "split_gap_protected"
+    ]
+  },
+  "results": [
+    {
+      "complement_component_loss": 3.3466626518929843e-06,
+      "complement_energy": 4.917168553220108e-06,
+      "constraint_violation_max": 0.006850667763501406,
+      "constraint_violation_mean": 0.0018630356062203646,
+      "loss": 0.012757636606693268,
+      "protected_component_loss": 0.012753928080201149,
+      "protected_energy": 1.0296217203140259,
+      "rollout_protected_relative_drift": 2.514665126800537,
+      "rollout_violation_final": 0.04940821975469589,
+      "variant": "vanilla"
+    },
+    {
+      "complement_component_loss": 3.958398792747175e-06,
+      "complement_energy": 4.769923179992475e-06,
+      "constraint_violation_max": 0.0132184699177742,
+      "constraint_violation_mean": 0.0015016237739473581,
+      "loss": 0.013625326566398144,
+      "protected_component_loss": 0.013621121644973755,
+      "protected_energy": 1.01296067237854,
+      "rollout_protected_relative_drift": 2.3014636039733887,
+      "rollout_violation_final": 0.21459516882896423,
+      "variant": "soft_penalty"
+    },
+    {
+      "complement_component_loss": 5.426994675872265e-07,
+      "complement_energy": 1.318451038242786e-24,
+      "constraint_violation_max": 2.2669846657663584e-06,
+      "constraint_violation_mean": 8.055541229623486e-07,
+      "loss": 0.01193722803145647,
+      "protected_component_loss": 0.01193639449775219,
+      "protected_energy": 1.0108176469802856,
+      "rollout_protected_relative_drift": 2.0119857788085938,
+      "rollout_violation_final": 1.3177825621824013e-06,
+      "variant": "output_projection"
+    },
+    {
+      "complement_component_loss": 5.426994675872265e-07,
+      "complement_energy": 1.318451038242786e-24,
+      "constraint_violation_max": 2.2669846657663584e-06,
+      "constraint_violation_mean": 8.055541229623486e-07,
+      "loss": 0.01193722803145647,
+      "protected_component_loss": 0.01193639449775219,
+      "protected_energy": 1.0108176469802856,
+      "rollout_protected_relative_drift": 2.0119857788085938,
+      "rollout_violation_final": 1.3177825621824013e-06,
+      "variant": "layerwise_projection"
+    },
+    {
+      "complement_component_loss": 4.777400164357459e-08,
+      "complement_energy": 8.257899253294454e-07,
+      "constraint_violation_max": 0.00347604020498693,
+      "constraint_violation_mean": 0.0008019296219572425,
+      "loss": 0.0032466785050928593,
+      "protected_component_loss": 0.003246630309149623,
+      "protected_energy": 0.9877246022224426,
+      "rollout_protected_relative_drift": 3.045811172341928e-05,
+      "rollout_violation_final": 0.0007662242278456688,
+      "variant": "split_gap_protected"
+    }
+  ],
+  "validation": {
+    "constraint": "external_data\\rayleigh_benard\\rb_velocity_32x32_mean_zero.npz",
+    "constraint_codim": 1,
+    "constraint_dim": 2048,
+    "data": "external_data\\rayleigh_benard\\rb_velocity_32x32_pairs.npz",
+    "dtype": "torch.float32",
+    "errors": [],
+    "flat_dim": 2048,
+    "input_constraint_violation_mean": 0.0008276058943010867,
+    "input_shape": [
+      2,
+      32,
+      32
+    ],
+    "num_samples": 320,
+    "ok": true,
+    "target_constraint_violation_max": 0.0008460099925287068,
+    "target_constraint_violation_mean": 0.0008414241601713002,
+    "target_shape": [
+      2,
+      32,
+      32
+    ]
+  }
+}

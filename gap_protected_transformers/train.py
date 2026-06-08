@@ -23,6 +23,11 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--target-key", default="y")
     parser.add_argument("--constraint-key", default="A")
     parser.add_argument(
+        "--implicit-constraint",
+        action="store_true",
+        help="Use iterative implicit projection instead of dense pseudoinverse projection.",
+    )
+    parser.add_argument(
         "--variant",
         choices=(
             "vanilla",
@@ -35,7 +40,7 @@ def main(argv: list[str] | None = None) -> None:
     )
     parser.add_argument(
         "--core",
-        choices=("mlp", "attention", "transformer", "moe"),
+        choices=("mlp", "attention", "transformer", "patch_transformer", "moe"),
         default="transformer",
     )
     parser.add_argument("--depth", type=int, default=4)
@@ -43,6 +48,14 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--num-tokens", type=int, default=8)
     parser.add_argument("--num-heads", type=int, default=1)
     parser.add_argument("--ffn-multiplier", type=int, default=4)
+    parser.add_argument(
+        "--field-shape",
+        default=None,
+        help="Optional C,H,W shape for patch_transformer; inferred from data if omitted.",
+    )
+    parser.add_argument("--patch-size", type=int, default=4)
+    parser.add_argument("--patch-embed-dim", type=int, default=128)
+    parser.add_argument("--patch-layers", type=int, default=2)
     parser.add_argument("--no-complement-residual", action="store_true")
     parser.add_argument("--epochs", type=int, default=50)
     parser.add_argument("--batch-size", type=int, default=32)
@@ -52,6 +65,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--val-fraction", type=float, default=0.1)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--device", default="cpu")
+    parser.add_argument("--rollout-steps", type=int, default=4)
     parser.add_argument("--output-dir", default="runs/supervised")
     parser.add_argument("--float64", action="store_true")
     args = parser.parse_args(argv)
@@ -67,7 +81,9 @@ def main(argv: list[str] | None = None) -> None:
         args.constraint,
         key=args.constraint_key,
         dtype=dtype,
+        implicit=args.implicit_constraint,
     )
+    constraint = constraint.to(torch.device(args.device))
     if dataset.metadata.flat_dim != constraint.dim:
         raise ValueError(
             f"Dataset flat dim {dataset.metadata.flat_dim} does not match "
@@ -84,6 +100,14 @@ def main(argv: list[str] | None = None) -> None:
         val_subset, batch_size=args.batch_size, shuffle=False, drop_last=False
     )
 
+    field_shape = _parse_field_shape(args.field_shape)
+    if field_shape is None and args.core == "patch_transformer":
+        if len(dataset.metadata.input_shape) != 3:
+            raise ValueError(
+                "patch_transformer requires --field-shape C,H,W for non-3D samples."
+            )
+        field_shape = tuple(int(item) for item in dataset.metadata.input_shape)
+
     model_config = ModelConfig(
         dim=constraint.dim,
         variant=args.variant,
@@ -93,6 +117,10 @@ def main(argv: list[str] | None = None) -> None:
         num_tokens=args.num_tokens,
         num_heads=args.num_heads,
         ffn_multiplier=args.ffn_multiplier,
+        field_shape=field_shape,
+        patch_size=args.patch_size,
+        patch_embed_dim=args.patch_embed_dim,
+        patch_layers=args.patch_layers,
         complement_residual=not args.no_complement_residual,
     )
     model = build_model(model_config, constraint).to(dtype=dtype)
@@ -105,6 +133,7 @@ def main(argv: list[str] | None = None) -> None:
         device=args.device,
         output_dir=args.output_dir,
         seed=args.seed,
+        rollout_steps=args.rollout_steps,
     )
     summary = train_supervised(
         model,
@@ -122,6 +151,15 @@ def main(argv: list[str] | None = None) -> None:
     )
     print(f"best_epoch={summary['best_epoch']} best_val_loss={summary['best_val_loss']:.6g}")
     print(f"wrote {Path(args.output_dir)}")
+
+
+def _parse_field_shape(value: str | None) -> tuple[int, int, int] | None:
+    if value is None:
+        return None
+    parts = tuple(int(part.strip()) for part in value.split(",") if part.strip())
+    if len(parts) != 3:
+        raise ValueError("--field-shape must have form C,H,W.")
+    return parts
 
 
 if __name__ == "__main__":

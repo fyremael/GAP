@@ -1,0 +1,17 @@
+{
+  "checkpoint": "runs\\rayleigh_benard_16x16_mean\\soft_penalty\\best.pt",
+  "checkpoint_epoch": 2,
+  "constraint": "external_data\\rayleigh_benard\\rb_velocity_16x16_mean_zero.npz",
+  "data": "external_data\\rayleigh_benard\\rb_velocity_16x16_pairs.npz",
+  "metrics": {
+    "complement_component_loss": 1.6114085156004876e-05,
+    "complement_energy": 1.7050086171366274e-05,
+    "constraint_violation_max": 0.01879025250673294,
+    "constraint_violation_mean": 0.003621042473241687,
+    "loss": 0.03144712746143341,
+    "protected_component_loss": 0.031430214643478394,
+    "protected_energy": 1.0000967979431152,
+    "rollout_protected_relative_drift": 1.1054390668869019,
+    "rollout_violation_final": 0.0478520393371582
+  }
+}

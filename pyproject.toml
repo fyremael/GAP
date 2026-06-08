@@ -15,12 +15,20 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest"]
+benchmark = ["h5py"]
 logging = ["wandb"]
+visual = ["matplotlib"]
 
 [project.scripts]
 gap-train = "gap_protected_transformers.train:main"
 gap-evaluate = "gap_protected_transformers.evaluate:main"
 gap-experiments = "gap_protected_transformers.experiments:main"
+gap-validate = "gap_protected_transformers.validate:main"
+gap-make-constraint = "gap_protected_transformers.make_constraint:main"
+gap-benchmark = "gap_protected_transformers.benchmark:main"
+gap-prepare-rayleigh-benard = "gap_protected_transformers.prepare_rayleigh_benard:main"
+gap-prepare-pdebench-ns = "gap_protected_transformers.prepare_pdebench_ns:main"
+gap-visualize = "gap_protected_transformers.visualize:main"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

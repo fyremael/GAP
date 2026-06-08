@@ -1,0 +1,39 @@
+{
+  "constraint_output": "external_data\\pdebench_ns\\ns_incomp_64x64_divergence.npz",
+  "divergence_stats": {
+    "target_constraint_violation_max": 3.1072568561609406e-06,
+    "target_constraint_violation_mean": 2.250860203262252e-06,
+    "target_constraint_violation_relative_max": 2.6681142986034682e-08,
+    "target_constraint_violation_relative_mean": 2.528235470231164e-08
+  },
+  "dx": 1.0,
+  "dy": 1.0,
+  "field_shape": [
+    2,
+    64,
+    64
+  ],
+  "normalization": {
+    "shared_scalar_velocity_scale": true,
+    "velocity_mean": [
+      1.5918929857031833e-13,
+      6.171765572562937e-13
+    ],
+    "velocity_scale": 0.03988516330718994
+  },
+  "normalized": true,
+  "output": "external_data\\pdebench_ns\\ns_incomp_64x64_pairs.npz",
+  "pairs": 1024,
+  "pdebench_generator": "https://github.com/pdebench/PDEBench/blob/main/pdebench/data_gen/gen_ns_incomp.py",
+  "provenance": {
+    "dt": 0.05,
+    "frames": 1025,
+    "method": "deterministic_streamfunction_surrogate",
+    "mode_count": 36,
+    "note": "Self-contained divergence-free slice generated from periodic streamfunctions; use --source to prepare official PDEBench HDF5 output.",
+    "seed": 0,
+    "viscosity": 0.0015
+  },
+  "source": null,
+  "source_url": "https://github.com/pdebench/PDEBench"
+}

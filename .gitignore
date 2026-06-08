@@ -1,0 +1,20 @@
+# External/generated benchmark data
+external_data/**/*.npz
+external_data/**/*.npy
+external_data/**/*.h5
+external_data/**/*.hdf5
+
+# Training checkpoints
+runs/**/*.pt
+
+# Python/runtime caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Local environments
+.venv/
+venv/

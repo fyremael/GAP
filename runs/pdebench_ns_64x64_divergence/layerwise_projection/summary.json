@@ -1,0 +1,61 @@
+{
+  "best_epoch": 17,
+  "best_val_loss": 2.9421253202599473e-05,
+  "final_metrics": {
+    "complement_component_loss": 1.2996677302076765e-12,
+    "complement_energy": 1.2996677302076765e-12,
+    "constraint_violation_max": 0.00011725986405508593,
+    "constraint_violation_mean": 0.0001055153479683213,
+    "constraint_violation_relative_max": 1.4267435517467675e-06,
+    "constraint_violation_relative_mean": 1.227263282999047e-06,
+    "loss": 6.778004171792418e-05,
+    "protected_component_loss": 6.778002716600895e-05,
+    "protected_energy": 0.9651651382446289,
+    "rollout_protected_relative_drift": 0.18503478169441223,
+    "rollout_violation_final": 8.779356721788645e-05
+  },
+  "model_config": {
+    "complement_residual": true,
+    "constraint": "external_data\\pdebench_ns\\ns_incomp_64x64_divergence.npz",
+    "core_type": "patch_transformer",
+    "data": "external_data\\pdebench_ns\\ns_incomp_64x64_pairs.npz",
+    "depth": 2,
+    "dim": 8192,
+    "ffn_multiplier": 4,
+    "field_shape": [
+      2,
+      64,
+      64
+    ],
+    "hidden_dim": null,
+    "input_shape": [
+      2,
+      64,
+      64
+    ],
+    "num_heads": 4,
+    "num_tokens": 8,
+    "patch_embed_dim": 128,
+    "patch_layers": 2,
+    "patch_size": 4,
+    "target_shape": [
+      2,
+      64,
+      64
+    ],
+    "variant": "layerwise_projection",
+    "zero_preserving": true
+  },
+  "training_config": {
+    "batch_size": 16,
+    "device": "cuda",
+    "epochs": 20,
+    "grad_clip_norm": 1.0,
+    "lr": 0.001,
+    "output_dir": "runs\\pdebench_ns_64x64_divergence\\layerwise_projection",
+    "penalty_weight": 0.0,
+    "rollout_steps": 16,
+    "seed": 0,
+    "weight_decay": 0.0
+  }
+}

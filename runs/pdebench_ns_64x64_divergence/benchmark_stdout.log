@@ -1,0 +1,16 @@
+best_epoch=20 best_val_loss=4.0355e-05
+wrote runs\pdebench_ns_64x64_divergence\vanilla
+loss=4.40307e-05 violation_mean=0.333276 protected_drift=0.47519
+best_epoch=20 best_val_loss=4.89559e-05
+wrote runs\pdebench_ns_64x64_divergence\soft_penalty
+loss=5.63205e-05 violation_mean=0.239089 protected_drift=0.610289
+best_epoch=19 best_val_loss=2.51522e-05
+wrote runs\pdebench_ns_64x64_divergence\output_projection
+loss=2.73957e-05 violation_mean=8.5808e-05 protected_drift=0.155765
+best_epoch=17 best_val_loss=2.94213e-05
+wrote runs\pdebench_ns_64x64_divergence\layerwise_projection
+loss=3.20318e-05 violation_mean=0.000105522 protected_drift=0.135399
+best_epoch=1 best_val_loss=2.321e-05
+wrote runs\pdebench_ns_64x64_divergence\split_gap_protected
+loss=2.45167e-05 violation_mean=2.40175e-06 protected_drift=6.97318e-10
+completed variants=5

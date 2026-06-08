@@ -120,6 +120,72 @@ class TokenTransformerCore(nn.Module):
         )
 
 
+class PatchTransformerCore(nn.Module):
+    """Patch Transformer core for flattened 2D fields with shape ``(C, H, W)``."""
+
+    def __init__(
+        self,
+        dim: int,
+        field_shape: tuple[int, int, int],
+        *,
+        patch_size: int = 4,
+        embed_dim: int = 128,
+        num_heads: int = 4,
+        num_layers: int = 2,
+        ffn_multiplier: int = 4,
+    ) -> None:
+        super().__init__()
+        channels, height, width = field_shape
+        if channels * height * width != dim:
+            raise ValueError("field_shape product must match dim.")
+        if height % patch_size != 0 or width % patch_size != 0:
+            raise ValueError("height and width must be divisible by patch_size.")
+        if embed_dim % num_heads != 0:
+            raise ValueError("embed_dim must be divisible by num_heads.")
+        self.dim = dim
+        self.field_shape = field_shape
+        self.patch_size = patch_size
+        self.patch_embed = nn.Conv2d(
+            channels,
+            embed_dim,
+            kernel_size=patch_size,
+            stride=patch_size,
+        )
+        num_patches = (height // patch_size) * (width // patch_size)
+        self.position = nn.Parameter(torch.zeros(1, num_patches, embed_dim))
+        layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim,
+            nhead=num_heads,
+            dim_feedforward=ffn_multiplier * embed_dim,
+            activation="gelu",
+            batch_first=True,
+            norm_first=True,
+        )
+        self.encoder = nn.TransformerEncoder(
+            layer,
+            num_layers=num_layers,
+            enable_nested_tensor=False,
+        )
+        self.unpatch = nn.ConvTranspose2d(
+            embed_dim,
+            channels,
+            kernel_size=patch_size,
+            stride=patch_size,
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        original_shape = x.shape
+        flat = x.reshape(-1, self.dim)
+        field = flat.reshape(-1, *self.field_shape)
+        patches = self.patch_embed(field)
+        batch, embed_dim, patch_h, patch_w = patches.shape
+        tokens = patches.flatten(2).transpose(1, 2)
+        tokens = self.encoder(tokens + self.position.to(tokens.dtype))
+        encoded = tokens.transpose(1, 2).reshape(batch, embed_dim, patch_h, patch_w)
+        out = self.unpatch(encoded).reshape(-1, self.dim)
+        return out.reshape(original_shape)
+
+
 class TinyMoECore(nn.Module):
     """Small dense MoE placeholder with soft expert mixing."""
 

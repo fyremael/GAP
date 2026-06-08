@@ -1,0 +1,24 @@
+{
+  "constraint": "external_data\\rayleigh_benard\\rb_velocity_32x32_divergence.npz",
+  "constraint_codim": 1024,
+  "constraint_dim": 2048,
+  "data": "external_data\\rayleigh_benard\\rb_velocity_32x32_pairs.npz",
+  "dtype": "torch.float32",
+  "errors": [],
+  "flat_dim": 2048,
+  "input_constraint_violation_mean": 22.31915855407715,
+  "input_shape": [
+    2,
+    32,
+    32
+  ],
+  "num_samples": 320,
+  "ok": true,
+  "target_constraint_violation_max": 28.394512176513672,
+  "target_constraint_violation_mean": 23.6301212310791,
+  "target_shape": [
+    2,
+    32,
+    32
+  ]
+}

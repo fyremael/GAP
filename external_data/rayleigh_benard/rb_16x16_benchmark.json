@@ -1,0 +1,31 @@
+{
+  "data": "external_data/rayleigh_benard/rb_velocity_16x16_pairs.npz",
+  "constraint": "external_data/rayleigh_benard/rb_velocity_16x16_divergence.npz",
+  "implicit_constraint": true,
+  "output_dir": "runs/rayleigh_benard_16x16",
+  "variants": [
+    "vanilla",
+    "soft_penalty",
+    "output_projection",
+    "layerwise_projection",
+    "split_gap_protected"
+  ],
+  "model": {
+    "core": "patch_transformer",
+    "field_shape": [2, 16, 16],
+    "patch_size": 4,
+    "patch_embed_dim": 32,
+    "patch_layers": 1,
+    "num_heads": 4,
+    "depth": 1
+  },
+  "training": {
+    "epochs": 2,
+    "batch_size": 16,
+    "lr": 0.001,
+    "penalty_weight": 10.0,
+    "val_fraction": 0.2,
+    "seed": 0,
+    "device": "cpu"
+  }
+}
